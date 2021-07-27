@@ -2,7 +2,7 @@ package com.epam.spring.core.beans;
 
 import org.springframework.beans.factory.annotation.Value;
 
-public class BeanB {
+public class BeanB implements ValidatableBean {
     @Value("${beanB.name}")
     private String name;
     @Value("${beanB.value}")
@@ -23,6 +23,12 @@ public class BeanB {
 
     private void newInitMethod() {
         System.out.println(this + ".newInitMethod()");
+    }
+
+    @Override
+    public void validate() {
+        if (name == null || value < 0)
+            throw new IllegalArgumentException(ValidatableBean.message);
     }
 
     private void destroy() {

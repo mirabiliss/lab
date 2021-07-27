@@ -2,7 +2,7 @@ package com.epam.spring.core.beans;
 
 import org.springframework.beans.factory.annotation.Value;
 
-public class BeanF {
+public class BeanF implements ValidatableBean {
     private String name;
     private int value;
 
@@ -23,5 +23,11 @@ public class BeanF {
     @Override
     public String toString() {
         return "[F:" + name + "->" + value + ']';
+    }
+
+    @Override
+    public void validate() {
+        if (name == null || value < 0)
+            throw new IllegalArgumentException(ValidatableBean.message);
     }
 }

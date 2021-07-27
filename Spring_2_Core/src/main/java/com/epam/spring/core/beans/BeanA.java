@@ -4,7 +4,7 @@ import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 
-public class BeanA implements InitializingBean, DisposableBean {
+public class BeanA implements InitializingBean, DisposableBean, ValidatableBean {
     private String name;
     private int value;
 
@@ -30,6 +30,12 @@ public class BeanA implements InitializingBean, DisposableBean {
     @Override
     public void afterPropertiesSet() {
         System.out.println(this + ".afterPropertiesSet()");
+    }
+
+    @Override
+    public void validate() {
+        if (name == null || value < 0)
+            throw new IllegalArgumentException(ValidatableBean.message);
     }
 
     @Override

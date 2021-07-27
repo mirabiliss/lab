@@ -7,7 +7,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
 @Component
-public class BeanE {
+public class BeanE implements ValidatableBean {
     private String name;
     private int value;
 
@@ -38,5 +38,11 @@ public class BeanE {
     @PreDestroy
     public void preDestroy() {
         System.out.println(this + ".preDestroy()");
+    }
+
+    @Override
+    public void validate() {
+        if (name == null || value < 0)
+            throw new IllegalArgumentException(ValidatableBean.message);
     }
 }
