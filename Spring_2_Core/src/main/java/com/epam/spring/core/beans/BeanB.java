@@ -21,6 +21,10 @@ public class BeanB {
         System.out.println(this + ".init()");
     }
 
+    private void newInitMethod() {
+        System.out.println(this + ".newInitMethod()");
+    }
+
     private void destroy() {
         System.out.println(this + ".destroy()");
     }
