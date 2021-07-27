@@ -9,7 +9,7 @@ import javax.annotation.PreDestroy;
 @Component
 public class BeanE {
     private String name;
-    private String value;
+    private int value;
 
     public BeanE() {
         System.out.println("BeanE constructor");
@@ -20,8 +20,8 @@ public class BeanE {
         this.name = name;
     }
 
-    @Value("evalue")
-    public void setValue(String value) {
+    @Value("10")
+    public void setValue(int value) {
         this.value = value;
     }
 

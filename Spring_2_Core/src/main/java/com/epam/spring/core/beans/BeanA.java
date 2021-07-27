@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 
 public class BeanA implements InitializingBean, DisposableBean {
     private String name;
-    private String value;
+    private int value;
 
     public BeanA() {
         System.out.println("BeanA constructor");
@@ -17,8 +17,8 @@ public class BeanA implements InitializingBean, DisposableBean {
         this.name = name;
     }
 
-    @Value("avalue")
-    public void setValue(String value) {
+    @Value("73")
+    public void setValue(int value) {
         this.value = value;
     }
 

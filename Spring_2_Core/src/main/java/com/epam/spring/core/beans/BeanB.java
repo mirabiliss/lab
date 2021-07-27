@@ -6,7 +6,7 @@ public class BeanB {
     @Value("${beanB.name}")
     private String name;
     @Value("${beanB.value}")
-    private String value;
+    private int value;
 
     public BeanB() {
         System.out.println("BeanB constructor");

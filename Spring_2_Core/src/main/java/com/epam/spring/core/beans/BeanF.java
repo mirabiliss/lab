@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Value;
 
 public class BeanF {
     private String name;
-    private String value;
+    private int value;
 
     public BeanF() {
         System.out.println("BeanF constructor");
@@ -15,8 +15,8 @@ public class BeanF {
         this.name = name;
     }
 
-    @Value("fvalue")
-    public void setValue(String value) {
+    @Value("45")
+    public void setValue(int value) {
         this.value = value;
     }
 
