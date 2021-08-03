@@ -15,3 +15,7 @@
 
 # Maven target folder
 target/
+
+# IntelliJ IDEA folder
+.idea/
+
