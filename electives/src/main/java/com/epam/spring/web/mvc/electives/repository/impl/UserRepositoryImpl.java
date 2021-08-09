@@ -9,11 +9,12 @@ import java.util.List;
 
 @Component
 public class UserRepositoryImpl implements UserRepository {
-    private final List<User> list = new ArrayList<>();
+
+    private final List<User> users = new ArrayList<>();
 
     @Override
     public User getUser(String email) {
-        return list.stream()
+        return users.stream()
                 .filter(user -> user.getEmail().equals(email))
                 .findFirst()
                 .orElseThrow(() -> new RuntimeException("User with email '" + email + "' was not found!"));
@@ -21,15 +22,15 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public User createUser(User user) {
-        list.add(user);
+        users.add(user);
         return user;
     }
 
     @Override
     public User updateUser(String email, User user) {
-        boolean isDeleted = list.removeIf(u -> u.getEmail().equals(email));
+        boolean isDeleted = users.removeIf(u -> u.getEmail().equals(email));
         if (isDeleted) {
-            list.add(user);
+            users.add(user);
         } else {
             throw new RuntimeException("User with email '" + email + "' was not found!");
         }
@@ -38,6 +39,6 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public void deleteUser(String email) {
-        list.removeIf(user -> user.getEmail().equals(email));
+        users.removeIf(user -> user.getEmail().equals(email));
     }
 }
