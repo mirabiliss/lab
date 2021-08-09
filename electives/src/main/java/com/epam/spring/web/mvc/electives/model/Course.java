@@ -6,7 +6,6 @@ import java.util.List;
 
 @Data
 public class Course {
-    private int id;
     private String naming;
     private int daysDuration;
     private List<User> students;
