@@ -10,69 +10,70 @@ import com.epam.spring.web.mvc.electives.service.MappingService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class MappingServiceImpl implements MappingService {
+    
     @Override
     public UserDto mapUserToUserDto(User user) {
-        List<CourseDto> courseDtos = new ArrayList<>();
-        for (Course course : user.getCourses()) {
-            courseDtos.add(mapCourseToCourseDto(course));
-        }
+        List<CourseDto> courseDtos = user.getCourses().stream()
+                .map(this::mapCourseToCourseDto)
+                .collect(Collectors.toList());
         return UserDto.builder()
                 .id(user.getId())
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
                 .email(user.getEmail())
-                .roleDto(mapRoleToRoleDto(user.getRole()))
+                .role(mapRoleToRoleDto(user.getRole()))
                 .courses(courseDtos)
                 .build();
     }
 
     @Override
     public User mapUserDtoToUser(UserDto userDto) {
-        List<Course> courses = new ArrayList<>();
-        for (CourseDto courseDto : userDto.getCourses()) {
-            courses.add(mapCourseDtoToCourse(courseDto));
-        }
+        List<Course> courses = userDto.getCourses().stream()
+                .map(this::mapCourseDtoToCourse)
+                .collect(Collectors.toList());
         return User.builder()
                 .id(userDto.getId())
                 .firstName(userDto.getFirstName())
                 .lastName(userDto.getLastName())
                 .email(userDto.getEmail())
                 .password(userDto.getPassword())
-                .role(mapRoleDtoToRole(userDto.getRoleDto()))
+                .role(mapRoleDtoToRole(userDto.getRole()))
                 .courses(courses)
                 .build();
     }
 
     @Override
     public RoleDto mapRoleToRoleDto(Role role) {
-        RoleDto roleDto = new RoleDto();
-        BeanUtils.copyProperties(roleDto, role);
-        return roleDto;
+        return RoleDto.builder()
+                .id(role.getId())
+                .naming(role.getNaming())
+                .build();
     }
 
     @Override
     public Role mapRoleDtoToRole(RoleDto roleDto) {
-        Role role = new Role();
-        BeanUtils.copyProperties(role, roleDto);
-        return role;
+        return Role.builder()
+                .id(roleDto.getId())
+                .naming(roleDto.getNaming())
+                .build();
     }
 
     @Override
     public CourseDto mapCourseToCourseDto(Course course) {
         CourseDto courseDto = new CourseDto();
-        BeanUtils.copyProperties(courseDto, course);
+        BeanUtils.copyProperties(course, courseDto);
         return courseDto;
     }
 
     @Override
     public Course mapCourseDtoToCourse(CourseDto courseDto) {
         Course course = new Course();
-        BeanUtils.copyProperties(course, courseDto);
+        BeanUtils.copyProperties(courseDto, course);
         return course;
     }
 }
