@@ -22,7 +22,6 @@ public class MappingServiceImpl implements MappingService {
                 .map(this::mapCourseToCourseDto)
                 .collect(Collectors.toList());
         return UserDto.builder()
-                .id(user.getId())
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
                 .email(user.getEmail())
@@ -37,7 +36,6 @@ public class MappingServiceImpl implements MappingService {
                 .map(this::mapCourseDtoToCourse)
                 .collect(Collectors.toList());
         return User.builder()
-                .id(userDto.getId())
                 .firstName(userDto.getFirstName())
                 .lastName(userDto.getLastName())
                 .email(userDto.getEmail())
@@ -49,18 +47,16 @@ public class MappingServiceImpl implements MappingService {
 
     @Override
     public RoleDto mapRoleToRoleDto(Role role) {
-        return RoleDto.builder()
-                .id(role.getId())
-                .naming(role.getNaming())
-                .build();
+        RoleDto roleDto = new RoleDto();
+        BeanUtils.copyProperties(role, roleDto);
+        return roleDto;
     }
 
     @Override
     public Role mapRoleDtoToRole(RoleDto roleDto) {
-        return Role.builder()
-                .id(roleDto.getId())
-                .naming(roleDto.getNaming())
-                .build();
+        Role role = new Role();
+        BeanUtils.copyProperties(roleDto, role);
+        return role;
     }
 
     @Override

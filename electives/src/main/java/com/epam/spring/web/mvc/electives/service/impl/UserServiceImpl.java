@@ -36,6 +36,11 @@ public class UserServiceImpl implements UserService {
     public UserDto updateUser(String email, UserDto userDto) {
         log.info("update User with email {}", email);
         User user = mappingService.mapUserDtoToUser(userDto);
+
+        User oldUser = userRepository.getUser(email);
+        user.setEmail(oldUser.getEmail());
+        user.setPassword(oldUser.getPassword());
+
         user = userRepository.updateUser(email, user);
         return mappingService.mapUserToUserDto(user);
     }
