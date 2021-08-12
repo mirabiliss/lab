@@ -6,3 +6,10 @@ management:
   endpoint:
     health:
       show-details: always
+info:
+  app:
+    encoding: "@project.build.sourceEncoding@"
+    java:
+      source: "@java.version@"
+      target: "@java.version@"
+    description: "Spring Boot App to manage elective courses"
