@@ -1,5 +1,6 @@
 package com.epam.spring.web.mvc.electives.repository.impl;
 
+import com.epam.spring.web.mvc.electives.exception.CourseNotFoundException;
 import com.epam.spring.web.mvc.electives.model.Course;
 import com.epam.spring.web.mvc.electives.repository.CourseRepository;
 import org.springframework.stereotype.Component;
@@ -17,7 +18,7 @@ public class CourseRepositoryImpl implements CourseRepository {
         return courses.stream()
                 .filter(user -> user.getNaming().equals(naming))
                 .findFirst()
-                .orElseThrow(() -> new RuntimeException("Course '" + naming + "' was not found!"));
+                .orElseThrow(CourseNotFoundException::new);
     }
 
     @Override
@@ -32,7 +33,7 @@ public class CourseRepositoryImpl implements CourseRepository {
         if (isDeleted) {
             courses.add(course);
         } else {
-            throw new RuntimeException("Course '" + naming + "' was not found!");
+            throw new CourseNotFoundException();
         }
         return course;
     }

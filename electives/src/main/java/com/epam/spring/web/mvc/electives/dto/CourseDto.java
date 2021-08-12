@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Data
@@ -19,9 +20,9 @@ public class CourseDto {
 
     private List<UserDto> students;
 
-    @NotBlank(message = "'teacherId' must not be blank!", groups = {OnCreate.class, OnUpdate.class})
+    @NotNull(message = "'teacherId' must not be empty!", groups = {OnCreate.class, OnUpdate.class})
     private int teacherId;
 
-    @NotBlank(message = "'finished' must not be blank!", groups = {OnCreate.class, OnUpdate.class})
+    @NotNull(message = "'finished' must not be empty!", groups = {OnCreate.class, OnUpdate.class})
     private boolean finished;
 }
