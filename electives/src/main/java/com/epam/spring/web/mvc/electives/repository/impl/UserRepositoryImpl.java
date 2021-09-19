@@ -1,5 +1,6 @@
 package com.epam.spring.web.mvc.electives.repository.impl;
 
+import com.epam.spring.web.mvc.electives.exception.UserNotFoundException;
 import com.epam.spring.web.mvc.electives.model.User;
 import com.epam.spring.web.mvc.electives.repository.UserRepository;
 import org.springframework.stereotype.Component;
@@ -17,7 +18,7 @@ public class UserRepositoryImpl implements UserRepository {
         return users.stream()
                 .filter(user -> user.getEmail().equals(email))
                 .findFirst()
-                .orElseThrow(() -> new RuntimeException("User with email '" + email + "' was not found!"));
+                .orElseThrow(UserNotFoundException::new);
     }
 
     @Override
@@ -32,7 +33,7 @@ public class UserRepositoryImpl implements UserRepository {
         if (isDeleted) {
             users.add(user);
         } else {
-            throw new RuntimeException("User with email '" + email + "' was not found!");
+            throw new UserNotFoundException();
         }
         return user;
     }
